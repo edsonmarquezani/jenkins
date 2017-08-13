@@ -1,39 +1,48 @@
 ---
 version: v1
+node_type: any
+
 stages:
   - name: Build
-    module: nodejs/generic
+    module: nodejs
+    submodule: generic
     options:
       build_command: ./build.sh
 
   - name: Package
-    module: docker/build
+    module: docker
+    submodule: build
     options:
       docker_registry: dockerhub.com
       docker_image_name_prefix: nome
 
   - name: Deploy
-    module: kubernetes/replicaset
+    module: kubernetes
+    submodule: replicaset
     options:
       kube_cluster_name: awsdev
       kube_namespace: gestao-grupos
       kube_replicaset_name: app-cn
 
   - name: "Publish Files"
-    module: s3/sync
+    module: s3
+    submodule: sync
     options:
       source_dir: ./content
       s3_bucket: company-staticfiles
       s3_prefix: files
 
   - name: "Code Analisys"
-    module: sonar/validate
+    module: sonar
+    submodule: validate
 
   - name: "Code Check"
-    module: sonar/quality_check
+    module: sonar
+    submodule: quality_check
 
   - name: "Cache Cleanup"
-    module: akamai/cache-cleanup
+    module: akamai
+    submodule: cache-cleanup
     options:
       akamai_distribution: www.company.com.br
       akamai_distribution_docroot: /files
