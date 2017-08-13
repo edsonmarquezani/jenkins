@@ -1,0 +1,10 @@
+---
+version: v1
+node_type: master
+
+stages:
+  - name: Build
+    module: nodejs
+    submodule: generic
+    options:
+      build_command: ./build.sh
