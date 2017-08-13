@@ -29,6 +29,7 @@ def main() {
    options = get_options(module_opts)
    echo "option docker_registry = ${options['docker_registry']}"
    echo "option docker_image_name_prefix = ${options['docker_image_name_prefix']}"
+   sh 'ls -la'
 }
 
 return this;
