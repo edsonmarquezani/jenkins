@@ -1,6 +1,6 @@
 ---
 version: v1
-node_type: any
+node_type: master
 
 stages:
   - name: Build
