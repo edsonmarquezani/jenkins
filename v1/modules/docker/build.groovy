@@ -25,10 +25,10 @@
   return options
 }
 
-def main() {
-  // options = get_options(opts)
-  // echo "option docker_registry = ${options['docker_registry']}"
-  // echo "option docker_image_name_prefix = ${options['docker_image_name_prefix']}"
+def main(opts) {
+  options = get_options(opts)
+  echo "option docker_registry = ${options['docker_registry']}"
+  echo "option docker_image_name_prefix = ${options['docker_image_name_prefix']}"
 }
 
 return this;
