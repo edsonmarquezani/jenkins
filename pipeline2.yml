@@ -3,8 +3,9 @@ version: v1
 node_type: master
 
 stages:
-  - name: Build
-    module: nodejs
-    submodule: generic
+  - name: Package
+    module: docker
+    submodule: build
     options:
-      build_command: ./build.sh
+      docker_registry: dockerhub.com
+      docker_image_name_prefix: nome
