@@ -26,9 +26,9 @@ def get_options(opts){
 }
 
 def main() {
-  // options = get_options(module_opts)
-  // echo "option docker_registry = ${options['docker_registry']}"
-  // echo "option docker_image_name_prefix = ${options['docker_image_name_prefix']}"
+  options = get_options(module_opts)
+  echo "option docker_registry = ${options['docker_registry']}"
+  echo "option docker_image_name_prefix = ${options['docker_image_name_prefix']}"
 }
 
 return this;
