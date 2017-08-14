@@ -1,1 +1,1 @@
-sh 'echo sonar/validate'
+return this;

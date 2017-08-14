@@ -25,7 +25,10 @@ def get_options(opts){
   return options
 }
 
-def options = get_options(module_opts)
+def main() {
+  options = get_options(module_opts)
+  echo "option kube_cluster_name = ${options['kube_cluster_name']}"
+  echo "option kube_replicaset_name = ${options['kube_replicaset_name']}"
+}
 
-echo "option kube_cluster_name = ${options['kube_cluster_name']}"
-echo "option kube_replicaset_name = ${options['kube_replicaset_name']}"
+return this;

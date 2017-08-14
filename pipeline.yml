@@ -4,45 +4,38 @@ node_type: master
 
 stages:
   - name: Build
-    module: nodejs
-    submodule: generic
+    module: nodejs/generic
     options:
       build_command: ./build.sh
 
   - name: Package
-    module: docker
-    submodule: build
+    module: docker/build
     options:
       docker_registry: dockerhub.com
       docker_image_name_prefix: nome
 
   - name: Deploy
-    module: kubernetes
-    submodule: replicaset
+    module: kubernetes/replicaset
     options:
       kube_cluster_name: awsdev
       kube_namespace: gestao-grupos
       kube_replicaset_name: app-cn
 
   - name: "Publish Files"
-    module: s3
-    submodule: sync
+    module: s3/sync
     options:
       source_dir: ./content
       s3_bucket: company-staticfiles
       s3_prefix: files
 
   - name: "Code Analisys"
-    module: sonar
-    submodule: validate
+    module: sonar/validate
 
   - name: "Code Check"
-    module: sonar
-    submodule: quality_check
+    module: sonar/quality_check
 
   - name: "Cache Cleanup"
-    module: akamai
-    submodule: cache-cleanup
+    module: akamai/cache-cleanup
     options:
       akamai_distribution: www.company.com.br
       akamai_distribution_docroot: /files

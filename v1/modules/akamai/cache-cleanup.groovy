@@ -23,7 +23,10 @@ def get_options(opts){
   return options
 }
 
-def options = get_options(module_opts)
+def main() {
+  options = get_options(module_opts)
+  echo "option akamai_distribution = ${options['akamai_distribution']}"
+  echo "option akamai_distribution_docroot = ${options['akamai_distribution_docroot']}"
+}
 
-echo "option akamai_distribution = ${options['akamai_distribution']}"
-echo "option akamai_distribution_docroot = ${options['akamai_distribution_docroot']}"
+return this;

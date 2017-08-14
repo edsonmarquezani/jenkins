@@ -1,1 +1,1 @@
-sh 'echo sonar/quality_check'
+return this;

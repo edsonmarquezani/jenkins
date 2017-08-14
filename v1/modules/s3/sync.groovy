@@ -27,9 +27,12 @@ def get_options(opts){
   return options
 }
 
-def options = get_options(module_opts)
+def main() {
+  options = get_options(module_opts)
+  echo "option s3_bucket = ${options['s3_bucket']}"
+  echo "option s3_region = ${options['s3_region']}"
+  echo "option s3_prefix = ${options['s3_prefix']}"
+  echo "option source_dir = ${options['source_dir']}"
+}
 
-echo "option s3_bucket = ${options['s3_bucket']}"
-echo "option s3_region = ${options['s3_region']}"
-echo "option s3_prefix = ${options['s3_prefix']}"
-echo "option source_dir = ${options['source_dir']}"
+return this;
