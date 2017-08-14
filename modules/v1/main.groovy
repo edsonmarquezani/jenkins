@@ -1,4 +1,4 @@
-  try {
+try {
 
   def modules = []
   def config_object
@@ -22,8 +22,11 @@
                ]
     }
 
+    list = env.JOB_NAME.split('/')
+    repo_name = list[list.size()-2]
+
     // Reads Pipeline meta-config
-    config_object = readYaml file: "pipeline.yml"
+    config_object = readYaml file: "pipelines/${repo_name}.yml"
 
     // Load modules to be use in the following stages
     for (i=0; i < config_object.stages.size(); i++) {
