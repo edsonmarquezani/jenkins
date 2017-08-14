@@ -1,5 +1,5 @@
 def main() {
-  echo "sonar"
+  sh 'env'
 }
 
 return this;
