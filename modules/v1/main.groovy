@@ -28,7 +28,7 @@
     // Load modules to be use in the following stages
     for (i=0; i < config_object.stages.size(); i++) {
       module_name = config_object.stages[i].module
-      module_path = "${config_object.version}/modules/${module_name}.groovy"
+      module_path = "modules/${config_object.version}/${module_name}.groovy"
       module = load module_path
       modules[i] = module
     }
