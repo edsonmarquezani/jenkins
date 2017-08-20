@@ -19,8 +19,7 @@ stages:
   - name: Package
     module: docker/build
     options:
-      registry: dockerhub.com
-      image_name_prefix: nome
+      image_name_prefix: app-teste
       image_name_suffix_branch: true
 
   - name: "Code Analisys"
