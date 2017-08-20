@@ -3,13 +3,11 @@ def get_options(opts){
   def options = [:]
 
   def option_names = [
-    'build_command',
-    'build_args_per_branch'
+    'notify_per_env'
   ]
 
   def option_defaults = [
-    'build_command:': './build.sh',
-    'build_args_per_branch': null
+    'notify_per_env': null
   ]
 
   // Getting module options and setting defaults
@@ -25,7 +23,6 @@ def get_options(opts){
 
 def main() {
   options = get_options(module_opts)
-  echo "option build_command = ${options['build_command']}"
 }
 
 return this;

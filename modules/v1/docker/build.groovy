@@ -3,15 +3,15 @@ def get_options(opts){
   def options = [:]
 
   def option_names = [
-    'docker_registry',
-    'docker_image_name_prefix',
-    'docker_build_args'
+    'registry',
+    'image_name_prefix',
+    'image_name_suffix_branch'
   ]
 
   def option_defaults = [
-    'docker_registry': 'registrycompany.azure.com',
-    'docker_image_name_prefix': '',
-    'docker_build_args': ''
+    'registry': env.DOCKER_REGISTRY_ACCOUNT,
+    'image_name_prefix': '',
+    'image_name_suffix_branch': true
   ]
 
   // Getting module options and setting defaults
@@ -27,8 +27,9 @@ def get_options(opts){
 
 def main() {
   options = get_options(module_opts)
-  echo "option docker_registry = ${options['docker_registry']}"
-  echo "option docker_image_name_prefix = ${options['docker_image_name_prefix']}"
+  echo "option registry = ${options['registry']}"
+  echo "option image_name_prefix = ${options['image_name_prefix']}"
+  echo "option image_name_suffix_branch = ${options['image_name_suffix_branch']}"
 }
 
 return this;

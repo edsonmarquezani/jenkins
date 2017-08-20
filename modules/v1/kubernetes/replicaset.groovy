@@ -3,15 +3,15 @@ def get_options(opts){
   def options = [:]
 
   def option_names = [
-    'kube_cluster_name',
-    'kube_namespace',
-    'kube_replicaset_name'
+    'cluster_name_per_env',
+    'namespace',
+    'replicaset'
   ]
 
   def option_defaults = [
-    'kube_cluster_name': null,
-    'kube_namespace': null,
-    'kube_replicaset_name': null
+    'cluster_name_per_env': null,
+    'namespace': null,
+    'replicaset': null
   ]
 
   // Getting module options and setting defaults
@@ -27,8 +27,8 @@ def get_options(opts){
 
 def main() {
   options = get_options(module_opts)
-  echo "option kube_cluster_name = ${options['kube_cluster_name']}"
-  echo "option kube_replicaset_name = ${options['kube_replicaset_name']}"
+  echo "option replicaset = ${options['replicaset']}"
+  echo "option namespace = ${options['namespace']}"
 }
 
 return this;

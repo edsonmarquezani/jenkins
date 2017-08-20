@@ -50,8 +50,12 @@ try {
 
       // Getting stage
       stage_name = config_object.stages[i].name
-      module_opts = config_object.stages[i].options
 
+      module_opts = [:]
+      if (config_object.stages[i].options != null) {
+        module_opts = config_object.stages[i].options
+      }
+      
       // Declares the stage
       stage(stage_name) {
         modules[i].main()

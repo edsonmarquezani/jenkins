@@ -3,13 +3,13 @@ def get_options(opts){
   def options = [:]
 
   def option_names = [
-    'akamai_distribution',
-    'akamai_distribution_prefix'
+    'environments',
+    'pcat'
   ]
 
   def option_defaults = [
-   'akamai_distribution': null,
-   'akamai_distribution_docroot': ""
+    'environments': ['production'],
+    'pcat': null
   ]
 
   // Getting module options and setting defaults
@@ -25,8 +25,7 @@ def get_options(opts){
 
 def main() {
   options = get_options(module_opts)
-  echo "option akamai_distribution = ${options['akamai_distribution']}"
-  echo "option akamai_distribution_docroot = ${options['akamai_distribution_docroot']}"
+  echo "option pcat = ${options['pcat']}"
 }
 
 return this;

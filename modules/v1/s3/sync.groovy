@@ -3,17 +3,17 @@ def get_options(opts){
   def options = [:]
 
   def option_names = [
-    's3_bucket',
-    's3_region',
-    's3_prefix',
+    'bucket',
+    'bucket_region',
+    'key_prefix',
     'source_dir'
   ]
 
   def option_defaults = [
-    's3_bucket': null,
-    's3_region': 'sa-east-1',
-    's3_prefix': "",
-    'source_dir': "./"
+    'bucket': null,
+    'bucket_region': 'sa-east-1',
+    'key_prefix': '',
+    'source_dir': './'
   ]
 
   // Getting module options and setting defaults
@@ -29,9 +29,9 @@ def get_options(opts){
 
 def main() {
   options = get_options(module_opts)
-  echo "option s3_bucket = ${options['s3_bucket']}"
-  echo "option s3_region = ${options['s3_region']}"
-  echo "option s3_prefix = ${options['s3_prefix']}"
+  echo "option bucket = ${options['bucket']}"
+  echo "option bucket_region = ${options['bucket_region']}"
+  echo "option key_prefix = ${options['key_prefix']}"
   echo "option source_dir = ${options['source_dir']}"
 }
 

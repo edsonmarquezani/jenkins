@@ -2,40 +2,60 @@
 version: v1
 node_type: master
 
+notification:
+  enable: true
+  emails:
+    - email1
+    - email2
+
 stages:
   - name: Build
     module: nodejs/generic
     options:
       build_command: ./build.sh
+      build_args_per_env:
+        - homolog: hml
 
   - name: Package
     module: docker/build
     options:
-      docker_registry: dockerhub.com
-      docker_image_name_prefix: nome
+      registry: dockerhub.com
+      image_name_prefix: nome
+      image_name_suffix_branch: true
+
+  - name: "Code Analisys"
+    module: sonar/scan
+
+  - name: "Code Check"
+    module: sonar/quality_gate_check
+    options:
+      notify_per_env:
+        homolog: "<email_list>"
+        production: "<email_list>"
+
+  - name: "Open SM"
+    module: sm/open
+    options:
+      environments:
+        - production
+      pcat: 123456
+
+  - name: "Close SM"
+    module: sm/close
 
   - name: Deploy
     module: kubernetes/replicaset
     options:
-      kube_cluster_name: awsdev
-      kube_namespace: gestao-grupos
-      kube_replicaset_name: app-cn
+      cluster_name_per_env:
+        - homolog: awsdev
+        - production: awsprod
+      namespace: gestao-grupos
+      replicaset: app-cn
 
   - name: "Publish Files"
     module: s3/sync
     options:
       source_dir: ./content
-      s3_bucket: company-staticfiles
-      s3_prefix: files
-
-  - name: "Code Analisys"
-    module: sonar/validate
-
-  - name: "Code Check"
-    module: sonar/quality_check
-
-  - name: "Cache Cleanup"
-    module: akamai/cache-cleanup
-    options:
-      akamai_distribution: www.company.com.br
-      akamai_distribution_docroot: /files
+      bucket_region: sa-east-1
+      bucket: company-staticfiles
+      key_prefix: filess
