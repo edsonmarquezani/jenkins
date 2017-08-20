@@ -1,0 +1,61 @@
+---
+version: v1
+node_type: master
+
+notification:
+  enable: true
+  emails:
+    - email1
+    - email2
+
+stages:
+  - name: Build
+    module: nodejs/generic
+    options:
+      build_command: ./build.sh
+      build_args_per_env:
+        - homolog: hml
+
+  - name: Package
+    module: docker/build
+    options:
+      registry: quay.io
+      image_name_prefix: app-teste
+      image_name_suffix_branch: true
+
+  - name: "Code Analisys"
+    module: sonar/scan
+
+  - name: "Code Check"
+    module: sonar/quality_gate_check
+    options:
+      notify_per_env:
+        homolog: "<email_list>"
+        production: "<email_list>"
+
+  - name: "Open SM"
+    module: sm/open
+    options:
+      environments:
+        - production
+      pcat: 123456
+
+  - name: "Close SM"
+    module: sm/close
+
+  - name: Deploy
+    module: kubernetes/replicaset
+    options:
+      cluster_name_per_env:
+        - homolog: awsdev
+        - production: awsprod
+      namespace: gestao-grupos
+      replicaset: app-cn
+
+  - name: "Publish Files"
+    module: s3/sync
+    options:
+      source_dir: ./content
+      bucket_region: sa-east-1
+      bucket: company-staticfiles
+      key_prefix: filess
