@@ -29,7 +29,7 @@ def main() {
   options = get_options(module_opts)
 
   // Build tag name
-  tag = "${registry}/${options['image_name_prefix']}"
+  tag = "${options['registry']}/${options['image_name_prefix']}"
   if(options['image_name_suffix_branch']) {
     tag = "${tag}-${env.BRANCH_NAME}"
   }
@@ -41,12 +41,7 @@ def main() {
 def docker_build(tag) {
   withEnv(["IMAGE_TAG=${tag}"]) {
     sh '''
-      if [ -f Dockerfile ]; then
-        docker login -u ${AZBR_REG_USR} -p ${AZBR_REG_PWD} -e ${EMAIL_INFRA_DIGITAL} ${AZBR_REG_HOST}
-        docker -H ${SWARM_API_HOST}:${SWARM_API_PORT} build --no-cache -t "${IMAGE_TAG} ."
-      else
-        echo "Project does not contain a Dockerfile. Skipping Build."
-      fi
+      echo ${IMAGE_TAG}
     '''
   }
 }
