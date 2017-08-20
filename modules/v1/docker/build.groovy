@@ -27,9 +27,27 @@ def get_options(opts){
 
 def main() {
   options = get_options(module_opts)
-  echo "option registry = ${options['registry']}"
-  echo "option image_name_prefix = ${options['image_name_prefix']}"
-  echo "option image_name_suffix_branch = ${options['image_name_suffix_branch']}"
+
+  // Build tag name
+  tag = "${registry}/${image_name_prefix}"
+  if(options['image_name_suffix_branch']) {
+    tag = "${tag}-${env.BRANCH_NAME}"
+  }
+  tag = "${tag}:${env.BUILD_NUMBER}"
+
+  docker_build(tag)
+}
+
+def docker_build(tag) {
+  withEnv(["IMAGE_TAG=${tag}"]) {
+    sh '''
+      if [ -f Dockerfile ]; then
+        docker -H ${SWARM_API_HOST}:${SWARM_API_PORT} build --no-cache -t "${IMAGE_TAG} ."
+      else
+        echo "Project does not contain a Dockerfile. Skipping Build."
+      fi
+    '''
+  }
 }
 
 return this;

@@ -35,6 +35,7 @@ try {
       module = load module_path
       modules[i] = module
     }
+    
   }
 
   node(config_object.node_type) {
@@ -55,7 +56,7 @@ try {
       if (config_object.stages[i].options != null) {
         module_opts = config_object.stages[i].options
       }
-      
+
       // Declares the stage
       stage(stage_name) {
         modules[i].main()
